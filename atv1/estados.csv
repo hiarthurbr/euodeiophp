@@ -1,0 +1,28 @@
+IBGE,Estado,UF,Região,Qtd Mun,UF
+11,Rondônia,RO,Região Norte,52,RO
+12,Acre,AC,Região Norte,22,AC
+13,Amazonas,AM,Região Norte,62,AM
+14,Roraima,RR,Região Norte,15,RR
+15,Pará,PA,Região Norte,144,PA
+16,Amapá,AP,Região Norte,16,AP
+17,Tocantins,TO,Região Norte,139,TO
+21,Maranhão,MA,Região Nordeste,217,MA
+22,Piauí,PI,Região Nordeste,224,PI
+23,Ceará,CE,Região Nordeste,184,CE
+24,Rio Grande do Norte,RN,Região Nordeste,167,RN
+25,Paraíba,PB,Região Nordeste,223,PB
+26,Pernambuco,PE,Região Nordeste,185,PE
+27,Alagoas,AL,Região Nordeste,102,AL
+28,Sergipe,SE,Região Nordeste,75,SE
+29,Bahia,BA,Região Nordeste,417,BA
+31,Minas Gerais,MG,Região Sudeste,853,MG
+32,Espírito Santo,ES,Região Sudeste,78,ES
+33,Rio de Janeiro,RJ,Região Sudeste,92,RJ
+35,São Paulo,SP,Região Sudeste,645,SP
+41,Paraná,PR,Região Sul,399,PR
+42,Santa Catarina,SC,Região Sul,295,SC
+43,Rio Grande do Sul,RS,Região Sul,497,RS
+50,Mato Grosso do Sul,MS,Região Centro-Oeste,79,MS
+51,Mato Grosso,MT,Região Centro-Oeste,141,MT
+52,Goiás,GO,Região Centro-Oeste,246,GO
+53,Distrito Federal,DF,Região Centro-Oeste,1,DF

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <section>Dados pessoais</section>
+    <br>
+    <form action="/gravar.php" method="post">
+      <div>
+        <label for="nome">Nome</label>
+        <input type="text" name="nome" placeholder="Nome" required>
+      </div>
+
+      <div>
+        <label for="e-mail">Email</label>
+        <input type="email" name="email" id="email" placeholder="seuemail@email.com" required>
+      </div>
+
+      <div>
+        <label for="nome-mae">Nome da mãe</label>
+        <input type="text" name="nome-mae" placeholder="Nome da mãe" required>
+      </div>
+
+      <div>
+        <label for="nome-pai">Nome do pai</label>
+        <input type="text" name="nome-pai" placeholder="Nome do pai" required>
+      </div>
+
+      <div>
+        <label for="Universidade">Universidade</label>
+        <input type="text" name="nome-pai" id="nome" placeholder="Digite a Universidade" required>
+      </div>
+
+      <div>
+        <label for="Curso">Curso</label>
+        <input type="text" name="Curso" placeholder="Digite o curso" required>
+      </div>
+
+      <div>
+        <label for="">Nacionalidade</label> 
+        <select name="Nacionalidade" required>
+        <option selected disabled value="">Selecione</option>
+        <option value="Brasil">Brasil</option>
+
+        </select>
+      </div>      
+
+      <div>
+        <label for="datanascimento">Data de Nascimento</label>
+        <input type="date" name="datanascimento" placeholder="Data de Nascimento" required>
+      </div>
+
+      <div>
+        <label for="estadocivil">Estado civil</label>
+        <select name="estadocivil" required>
+
+          <option selected disabled value="">Selecione</option>
+          <option value="Solteiro">Solteiro(a)</option>
+          <option value="Casado">Casado(a)
+          </option>
+          <option value="Divorciado">Divorciado(a)</option>
+          <option value="Viúvo">Viúvo(a)</option>
+
+        </select>
+      </div>
+
+      <div>
+        <span>Sexo:</span>
+
+        <div>
+          <input type="radio" id="masculino" name="sexo" value="Masculino" required>
+          <label for="masculino">
+            <span></span>
+            Masculino</label>
+        </div>
+        <div>
+          <input type="radio" id="feminino" name="sexo" value="Feminino" required>
+          <label for="feminino">
+            <span></span>
+            Feminino</label>
+        </div>
+      </div>
+      <div>
+
+      <br>
+      <section>Documentação
+      <br>
+      <br>
+      <div>
+        <label for="RG">RG</label>
+        <input type="text" name="RG" placeholder="Digite o seu RG" required>
+      </div>
+  
+      <div>
+        <label for="orgaoexp">Orgão de expedição</label>
+        <input type="text" name="orgaoexp" placeholder="Digite o orgão de expedição" required>
+      </div>
+      
+      <div>
+        <label for="dataexp">Data de expedição</label>
+        <input type="date" name="dataexp" required>
+      </div>
+
+      <div>
+        <label for="cpf">CPF</label>
+        <input type="text" name="cpf" id="cpf" onchange="const el = document.getElementById('cpf'); verify(el.value) ? el.setCustomValidity('') : el.setCustomValidity('CPF Inválido')" placeholder='Digite o CPF' required>
+      </div>
+      <br>
+      </section>
+
+      <section>Informações para contato
+      <br>
+      <br>
+
+      <div>
+        <label for="cep">CEP</label>
+        <input type="text" name="cep" placeholder="Digite o seu CEP" required>
+      </div>
+
+      <label for="uf">UF:</label>
+      <select id="uf" name="uf" onchange="onChangeUF()" required>
+        <option selected disabled value="default">Selecione</option>
+      </select>
+      <label for="city">Cidade:</label>
+      <select id="city" name="city" required>
+        <option selected disabled value="default">Selecione uma UF</option>
+      </select>
+    </div>
+
+    <div>
+      <label for="Logradouro">Logradouro</label>
+      <select name="logradouro"required>
+      <option selected disabled value="default">Logradouro</option>
+      <option value="avenida">Avenida</option>
+    </select>
+      <input type="text" name="cep" required> 
+      <label for="numero-casa">N° </label>
+      <input type="text" name="numero-casa" required>
+    </div>
+
+    <div>
+      <label for="bairro">Bairro</label>
+      <input type="text" name="bairro" placeholder="Digite o seu bairro" required>
+    </div>
+
+    <div>
+      <label for="telefone">Telefone</label>
+      (<input type="text" name="ddd" id="ddd" onkeydown="limit_number(2, document.getElementById('ddd'))" style="width: 0; min-width: 1.5rem;" required>)
+      <input type="text" name="numero" id="celnum" onkeydown="limit_number(9, document.getElementById('celnum'))" style="width: 0; min-width: 4.7rem;" required>
+    </div>
+  </section>
+    <br>
+    <section>Datas e horários disponíveis para agendamento
+    <br>
+    <br>
+    
+    <div>
+      <label for="data">Data</label>
+      <input type="date" name="data" required>
+    </div>
+
+    <div>
+      <label for="horario">Horário</label>
+      <input type="time" name="horario" required>
+    </div>
+
+    </section>
+
+      <br>
+      <button type="submit">Enviar</button>
+    </form>
+    <script defer>
+      function verify(input) {
+        input = input.split(/[.\-]+/g).join('')
+        if (input.length !== 11) return false
+        const inputMap = input.split('').map(Number)  
+        const verifiers = []
+        if (inputMap[0] === inputMap.reduce((a, b) => a + b) / 11) return false
+        verifiers.push(inputMap.pop())
+        verifiers.push(inputMap.pop())
+        let length = inputMap.length +1
+        const first = inputMap
+          .map(a => a * length--)
+          .reduce((a, b) => a + b) * 10 % 11
+        if (first !== verifiers[1]) return false
+        inputMap.push(verifiers[1])
+        length = inputMap.length +1
+        const second = inputMap
+          .map(a => a * length--)
+          .reduce((a, b) => a + b) * 10 % 11
+        return (second === verifiers[0])
+      }
+      function limit_number(number, el) {
+        const l = el.value.length
+        const e = event || window.event
+        if (e.keyCode === 8) return;
+        if (e.keyCode < 48 || e.keyCode > 57) return e.preventDefault()
+        if (l < number) return;
+        !el.value.match(new RegExp(`/[0-9]{${number}}/g`)) && e.preventDefault()
+      }
+      let j;
+      fetch('/c.json').then(r => r.json()).then(d => {
+        j = d;
+        for (const uf in d) ufel.innerHTML += `<option value="${uf}">${d[uf].nome}</option>`
+        return d
+      })
+      const ufel = document.getElementById('uf')
+      const city = document.getElementById('city')
+      let selected = city.value
+      const onChangeUF = () => {
+        const cities = j[ufel.value].cidades.map((c, i) => `<option value="${`${ufel.value} | ${c}`}">${c}</option>`)
+        cities.unshift('<option selected disabled value="default">Selecione uma cidade</option>')
+        city.innerHTML = cities.join('')
+      }
+    </script>
+
+
+  </body>
+</html>

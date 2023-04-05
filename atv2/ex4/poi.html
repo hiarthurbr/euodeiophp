@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Par ou impar</title>
+</head>
+<body>
+  <form action="poi.php" method="post">
+    <input type="radio" name="poi" value="par" required>
+    <label for="poi">Par</label><br>
+    <input type="radio" name="poi" value="impar" required>
+    <label for="poi">Ímpar</label><br><br>
+    <label for="num">Número: </label>
+    <input type="number" name="num" required max="10" min="0"><br><br>
+    <input type="submit" value="Enviar">
+  </form>
+</body>
+</html>
