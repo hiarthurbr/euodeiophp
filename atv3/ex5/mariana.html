@@ -5,13 +5,91 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mariana</title>
+  <style>
+    body {
+      font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .bg {
+      z-index: -999;
+      top:0;
+      left:0;
+      right:0;
+      bottom:0;
+      position: fixed;
+      width:100%;
+      height:100%;
+      padding-top: 4rem;
+      background:#ffb048;
+      overflow:hidden;
+    }
+
+    .container{
+      right: 45rem;
+      bottom: 4rem;
+      position: absolute;
+    }
+
+    .center {
+      position: fixed;
+      text-align: center;
+      align-items: center;
+      justify-content: center;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .title {
+      font-size: 4rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .round-input {
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px; 
+    }
+
+    .pretty-button {
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      padding: 10px;
+      margin: 10px;
+    }
+
+    .pretty-button:hover {
+      background-color: #ccc;
+      cursor: pointer;
+    }
+
+    .box {
+      --tw-backdrop-blur: blur(8px);
+      backdrop-filter: blur(20px);
+      border-radius: 4rem;
+      padding: .1rem;
+      padding-left: 4rem;
+      padding-right: 4rem;
+      background-color: #00000080;
+    }
+  </style>
 </head>
 <body>
-  <h1>Mariana conta até quanto?</h1>
-  <form action="mariana.php" method="post">
-    <label for="x">Número</label>
-    <input type="number" name="x">
-    <input type="submit" value="Gerar música">
+  <form action="mariana.php" method="post" class="center">
+    <div class="box">
+      <h1 class="title">Mariana conta até quanto?</h1>
+    </div>
+    <label for="x" style="font-weight: 700; font-size: larger; color: #fff">Número</label>
+    <input type="number" name="x" min="1" max="9999" value="5" class="round-input">
+    <input type="submit" value="Gerar música" class="pretty-button">
   </form>
+  <footer class="bg">
+    <img src="https://media.tenor.com/y1qPa1DUU5sAAAAi/nope-no-way.gif" class="container">
+  </footer>
 </body>
 </html>

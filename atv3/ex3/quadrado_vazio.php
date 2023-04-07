@@ -16,7 +16,7 @@
   </style>
   ";
 
-  echo '<table>'; 
+  echo '<table>';
 
   for ($i = 0; $i < $x; $i++) {
     echo '<tr>';
