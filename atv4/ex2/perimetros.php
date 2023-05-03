@@ -15,7 +15,7 @@
             $btn_name = 'Escolher forma';
 
             if (isset($_POST['forma'])) {
-                $action = 'perimetros_funcs.php';
+                $action = 'perimetros_func.php';
                 $forma = $_POST['forma'];
                 $btn_name = 'Calcular perimetro';
             }
