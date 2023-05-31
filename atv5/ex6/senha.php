@@ -73,6 +73,23 @@
         return false;
       }
     }
+    document.addEventListener('DOMContentLoaded', function() {
+      const inputs = Array.from(
+        document.querySelectorAll('input[type="checkbox"]')
+      );
+
+      const inputListener = _ => {
+        let cumCheck = false;
+        inputs.forEach(i => {
+          if (i.checked) cumCheck = true;
+        });
+        if (cumCheck) inputs.forEach(i => (i.required = false))
+        else inputs.forEach(i => (i.required = true))
+      };
+
+      inputListener();
+      inputs.forEach(i => i.addEventListener('input', inputListener));
+    });
   </script>
   <style>
     body {
@@ -180,67 +197,63 @@
   <div class="center">
     <h1 class="title">Gerador de senha</h1>
     <?php
-    if (isset($_POST['tamanho']) && isset($_POST['primeiro'])) {
-      $tamanho = (int) $_POST['tamanho'];
-      $first = $_POST['primeiro'];
-      $seguintes = isset($_POST['seguintes']) ? $_POST['seguintes'] : [];
+      if (isset($_POST['tamanho']) && isset($_POST['primeiro']) && isset($_POST['seguintes']) && count($_POST['seguintes']) > 0) {
+        $tamanho = (int) $_POST['tamanho'];
+        $first = $_POST['primeiro'];
+        $seguintes = isset($_POST['seguintes']) ? $_POST['seguintes'] : [];
 
-      $numeros = range(0, 9);
-      $maiusculas = range('A', 'Z');
-      $minusculas = range('a', 'z');
-      $simbolos = str_split('#$%!@&*');
+        $numeros = range(0, 9);
+        $maiusculas = range('A', 'Z');
+        $minusculas = range('a', 'z');
+        $simbolos = str_split('#$%!@&*');
 
-      $senha = '';
+        $senha = '';
 
-      $p_letra = '';
-      $p_letra .= $first == 'numero' ? $numeros[array_rand($numeros)] : '';
-      $p_letra .= $first == 'maiuscula' ? $maiusculas[array_rand($maiusculas)] : '';
-      $p_letra .= $first == 'minuscula' ? $minusculas[array_rand($minusculas)] : '';
-      $p_letra .= $first == 'simbolo' ? $simbolos[array_rand($simbolos)] : '';
+        $p_letra = '';
+        $p_letra .= $first == 'numero' ? $numeros[array_rand($numeros)] : '';
+        $p_letra .= $first == 'maiuscula' ? $maiusculas[array_rand($maiusculas)] : '';
+        $p_letra .= $first == 'minuscula' ? $minusculas[array_rand($minusculas)] : '';
+        $p_letra .= $first == 'simbolo' ? $simbolos[array_rand($simbolos)] : '';
 
-      while (strlen($senha) < $tamanho) {
-        foreach ($seguintes as $key => $value) {
-          $senha .= $value == 'numero' ? $numeros[array_rand($numeros)] : '';
-          $senha .= $value == 'maiuscula' ? $maiusculas[array_rand($maiusculas)] : '';
-          $senha .= $value == 'minuscula' ? $minusculas[array_rand($minusculas)] : '';
-          $senha .= $value == 'simbolo' ? $simbolos[array_rand($simbolos)] : '';
+        while (strlen($senha) < $tamanho) {
+          foreach ($seguintes as $key => $value) {
+            $senha .= $value == 'numero' ? $numeros[array_rand($numeros)] : '';
+            $senha .= $value == 'maiuscula' ? $maiusculas[array_rand($maiusculas)] : '';
+            $senha .= $value == 'minuscula' ? $minusculas[array_rand($minusculas)] : '';
+            $senha .= $value == 'simbolo' ? $simbolos[array_rand($simbolos)] : '';
+          }
         }
+
+        $senha = str_shuffle($senha);
+        $senha = $p_letra . substr($senha, 0, $tamanho - 1);
+
+        echo "<code class=\"round-input\">$senha</code><button class=\"pretty-button\" onclick=\"copyToClipboard('$senha')\">Copiar</button>";
       }
-
-      $senha = str_shuffle($senha);
-      $senha = $p_letra . substr($senha, 0, $tamanho - 1);
-
-      echo "<code class=\"round-input\">$senha</code><button class=\"pretty-button\" onclick=\"copyToClipboard('$senha')\">Copiar</button>";
-    }
-    $form = explode("\n", "
-          <form action='senha.php' method='post' class'box'>
-          <label for='tamanho'>Tamanho da senha:</label>
-          <input class='round-input' type='number' name='tamanho' id='tamanho' required value='" . (isset($tamanho) ? $tamanho : '8'). '"' . ">
-          <br>
-          <label for='primeiro'>Primeiro caractere:</label>
-          <select class='pretty-button' name='primeiro' id='primeiro'>
-            <option value='numero'" . (isset($first) && $first === "numero" ? ' selected' : '') . ">Número</option>
-            <option value='maiuscula'" . (isset($first) && $first === "maiuscula" ? ' selected' : '') . ">Maiúscula</option>
-            <option value='minuscula'" . (isset($first) && $first === "minuscula" ? ' selected' : '') . ">Minúscula</option>
-            <option value='simbolo'" . (isset($first) && $first === "simbolo" ? ' selected' : '') . ">Símbolo</option>
-          </select>
-          <br>
-          <label for='seguintes'>Seguintes:</label>
-          <input class='round-input' type='checkbox' name='seguintes[]' id='numero' value='numero'" . (isset($seguintes) && in_array("numero", $seguintes) ? ' checked' : '') . ">
-          <label for='numero'>Número</label>
-          <input class='round-input' type='checkbox' name='seguintes[]' id='maiuscula' value='maiuscula'" . (isset($seguintes) && in_array("maiuscula", $seguintes) ? ' checked' : '') . ">
-          <label for='maiuscula'>Maiúscula</label>
-          <input class='round-input' type='checkbox' name='seguintes[]' id='minuscula' value='minuscula'" . (isset($seguintes) && in_array("minuscula", $seguintes) ? ' checked' : '') . ">
-          <label for='minuscula'>Minúscula</label>
-          <input class='round-input' type='checkbox' name='seguintes[]' id='simbolo' value='simbolo'" . (isset($seguintes) && in_array("simbolo", $seguintes) ? ' checked' : '') . ">
-          <label for='simbolo'>Símbolo</label>
-          <br>
-          <button class='pretty-button' type='submit'>Enviar</button>
-        </form>");
-    foreach ($form as $index => $line)
-      $form[$index] = str_replace("'", '"', trim($line));
-    echo implode('', $form);
     ?>
+    <form action="senha.php" method="post" class="box" id="form">
+      <label for="tamanho">Tamanho da senha:</label>
+      <input class="round-input" type="number" name="tamanho" id="tamanho" min="2" required value=<?php echo '"'.(isset($tamanho) ? $tamanho : '8').'"' ?>>
+      <br>
+      <label for="primeiro">Primeiro caractere:</label>
+      <select class="pretty-button" name="primeiro" id="primeiro" required>
+        <option value="numero" <?php echo isset($first) && $first === "numero" ? ' selected' : ''; ?>>Número</option>
+        <option value="maiuscula" <?php echo isset($first) && $first === "maiuscula" ? ' selected' : ''; ?>>Maiúscula</option>
+        <option value="minuscula" <?php echo isset($first) && $first === "minuscula" ? ' selected' : ''; ?>>Minúscula</option>
+        <option value="simbolo" <?php echo isset($first) && $first === "simbolo" ? ' selected' : ''; ?>>Símbolo</option>
+      </select>
+      <br>
+      <label for="seguintes">Seguintes:</label>
+      <input class="round-input" type="checkbox" name="seguintes[]" id="numero" value="numero" <?php echo isset($seguintes) && in_array("numero", $seguintes) ? ' checked' : '' ?>>
+      <label for="numero">Número</label>
+      <input class="round-input" type="checkbox" name="seguintes[]" id="maiuscula" value="maiuscula" <?php echo isset($seguintes) && in_array("maiuscula", $seguintes) ? ' checked' : '' ?>>
+      <label for="maiuscula">Maiúscula</label>
+      <input class="round-input" type="checkbox" name="seguintes[]" id="minuscula" value="minuscula" <?php echo isset($seguintes) && in_array("minuscula", $seguintes) ? ' checked' : '' ?>>
+      <label for="minuscula">Minúscula</label>
+      <input class="round-input" type="checkbox" name="seguintes[]" id="simbolo" value="simbolo" <?php echo isset($seguintes) && in_array("simbolo", $seguintes) ? ' checked' : '' ?>>
+      <label for="simbolo">Símbolo</label>
+      <br>
+      <button class="pretty-button" type="submit">Enviar</button>
+    </form>
   </div>
   <div class="betinho-container">
     <h3 class="betinho-title">Confiado por Betinho</h3>
