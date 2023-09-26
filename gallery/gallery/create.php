@@ -98,12 +98,14 @@
             $image_slug = bin2hex(random_bytes(2));
             $size = filesize($tmp_name);
             $is_image = exif_imagetype($tmp_name);
-            $file_name = uniqid(time(), true) . "." . strtolower(pathinfo($images['name'][$key], PATHINFO_EXTENSION));
-            move_uploaded_file(
-              $tmp_name,
-              __DIR__ . "/static/" . $file_name
-            );
-            mysqli_query($conexao, "INSERT INTO post_img (slug, file_name, post_id, i) VALUES ('$image_slug', '$file_name', $post_id, $key)");
+            if ($is_image && $size < 10_000_000 /* 10 Mb */) {
+              $file_name = uniqid(time(), true) . "." . strtolower(pathinfo($images['name'][$key], PATHINFO_EXTENSION));
+              move_uploaded_file(
+                $tmp_name,
+                __DIR__ . "/static/" . $file_name
+              );
+              mysqli_query($conexao, "INSERT INTO post_img (slug, file_name, post_id, i) VALUES ('$image_slug', '$file_name', $post_id, $key)");
+            }
           }
           header("Location: /gallery/gallery/index.php?post=$slug");
         }
