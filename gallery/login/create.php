@@ -76,7 +76,7 @@
       <h1 class="font-Montserrat font-black text-6xl">Criar conta</h1>
       <div>
         <label for="name" class="font-Montserrat font-extrabold text-xl">Nome</label>
-        <input type="text" name="name" placeholder="Digite seu nome" value="<?php if (isset($_POST['name']))
+        <input type="text" name="name" placeholder="Digite seu" value="<?php if (isset($_POST['name']))
           echo $_POST['name'] ?>" class="bg-black text-white m-2 p-2 rounded-xl font-Inter font-bold" required>
         </div>
         <div>
