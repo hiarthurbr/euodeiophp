@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+    <head>
+        <title>Formulário de Cadastro</title>
+    </head>
+    <body>
+        <h1>Formulário de Cadastro</h1>
+        <form
+            name="produto"
+            action="criar.php"
+            method="post"
+            enctype="multipart/form-data"
+        >
+            <b>Descrição: </b><br /><textarea
+                name="descricao"
+                rows="3"
+                cols="100"
+                style="resize: none"
+            ></textarea
+            ><br /><br />
+            <b>Imagem: </b>
+            <input
+                type="file"
+                id="imagem"
+                name="imagem"
+                accept="image/png, image/jpeg, image/jpg"
+            /><br /><br />
+            <input type="submit" value="Criar" />
+            <input type="reset" value="Limpar" />
+            <input
+                type="button"
+                onclick="window.location='index.php';"
+                value="Voltar"
+            />
+        </form>
+    </body>
+</html>
