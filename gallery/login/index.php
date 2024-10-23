@@ -28,8 +28,6 @@
         if (password_verify($password, $hash_password)) {
           $jwt = bin2hex(random_bytes(64));
           $expires_at = time() + 259_200; /* 30 days */
-
-          $jwt = bin2hex(random_bytes(64));
           mysqli_query($conexao, "INSERT INTO session (session_id, navigator_name, navigator_codename, platform, product, language, user_id, expires_at) VALUES ('$jwt', '$navigator_name', '$navigator_codename', '$platform', '$product', '$language', '$user_id', '$expires_at')");
 
           setcookie("jwt", $jwt, $expires_at, "/");
@@ -96,6 +94,6 @@
         (document.getElementById("product") ?? {}).value = navigator.product;
         (document.getElementById("language") ?? {}).value = navigator.language;
       </script>
-  </body>
-
-  </html>
+  </main>
+</body>
+</html>

@@ -12,6 +12,7 @@ if (isset($_COOKIE['jwt'])) {
       setcookie("jwt", "", time() - 3600, "/");
       mysqli_query($conexao, "DELETE FROM session WHERE session_id = '$jwt'");
       require_once "../forbidden.php";
+      header("Location: /gallery/forbidden.php");
       die();
     } else {
       $query = mysqli_query($conexao, "SELECT * FROM user WHERE id = '$user_id'");
@@ -31,10 +32,12 @@ if (isset($_COOKIE['jwt'])) {
   } else {
     setcookie("jwt", "", time() - 3600, "/");
     require_once "../forbidden.php";
+    header("Location: /gallery/forbidden.php");
     die();
   }
 } else {
   require_once "../forbidden.php";
+  header("Location: /gallery/forbidden.php");
   die();
 }
 ?>

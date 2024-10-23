@@ -110,7 +110,7 @@
         (document.getElementById("product") ?? {}).value = navigator.product;
         (document.getElementById("language") ?? {}).value = navigator.language;
       </script>
-  </body>
   </main>
+</body>
 
   </html>
